@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="Tracker kebiasaan membaca offline.">
+<link rel="manifest" href="manifest.webmanifest">
+<title>READSTREAK — Offline Reading Tracker</title>
+<style>
+:root{--bg:#0a1120;--panel:#121d30;--panel2:#17253b;--line:#293b57;--text:#eef4ff;--muted:#96a8c2;--blue:#84baff;--green:#7be0b0;--orange:#ffbd78;--red:#ff8798}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#1a3152 0,#0a1120 58%);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+.wrap{max-width:1050px;margin:auto;padding:24px 18px 50px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:27px}.brand{font-size:19px;font-weight:950;letter-spacing:2px}.brand span{color:var(--blue)}.muted{color:var(--muted)}.tiny{font-size:12px}.status{border:1px solid #35506e;background:#14243a;padding:7px 11px;border-radius:99px;font-size:11px;color:#a9d1ff;white-space:nowrap}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.08;margin:0 0 9px;letter-spacing:-1px}.lead{margin:0 0 22px;color:var(--muted)}h2{font-size:18px;margin:0}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:linear-gradient(145deg,var(--panel),#101a2b);border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:0 12px 34px #0002}.metric{font-size:30px;font-weight:900;letter-spacing:-1px;margin-top:4px}.label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px}.unit{font-size:12px;color:var(--muted)}.section{margin-top:14px}.twocol{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}.chart{height:178px;display:flex;align-items:end;gap:10px;padding:10px 2px 0}.barcol{height:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:7px}.bar{width:min(36px,78%);min-height:3px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#a5d1ff,#4d91e5)}.day,.barval{font-size:10px;color:var(--muted)}.progress{height:9px;background:#263750;border-radius:99px;overflow:hidden;margin:12px 0}.progress i{display:block;height:100%;background:linear-gradient(90deg,#72b8ff,#7be0b0);width:0}
+form{display:grid;grid-template-columns:1fr 1fr;gap:10px}label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:11px;background:#0c1728;color:var(--text);padding:11px 12px;font:inherit}input:focus,select:focus,textarea:focus{outline:2px solid #477fbe}.full{grid-column:1/-1}.btn{border:0;border-radius:11px;padding:11px 14px;background:var(--blue);color:#081321;font-weight:850;cursor:pointer;font:inherit;font-weight:800}.btn.secondary{background:#263852;color:var(--text)}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}.btn.danger{background:#482a39;color:#ffdce4}.btn:disabled{opacity:.5}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.list{display:grid;gap:8px}.entry{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px;border:1px solid var(--line);border-radius:12px;background:#0e192a}.entry strong{display:block;font-size:14px}.entry small{display:block;color:var(--muted);font-size:11px;overflow-wrap:anywhere}.entry .pages{font-weight:850;color:var(--green);white-space:nowrap}.entry button{padding:6px 9px}.tabs{display:flex;gap:7px;margin:20px 0 14px;overflow:auto}.tab{background:#142138;color:var(--muted);border:1px solid var(--line);padding:9px 14px;border-radius:99px;white-space:nowrap;cursor:pointer}.tab.active{background:#d8eaff;color:#102039;border-color:#d8eaff;font-weight:800}.panel{display:none}.panel.active{display:block}.empty{padding:16px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px}.bookchip{font-size:11px;color:#b6d6ff;background:#1b304b;border-radius:99px;padding:4px 8px}.notice{background:#14243a;border:1px solid #35506e;border-radius:13px;padding:12px;color:#b8cbe4;font-size:12px}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#e5f2ff;color:#0b1728;padding:10px 15px;border-radius:12px;font-weight:750;box-shadow:0 8px 30px #0006;display:none;z-index:5;max-width:90vw}.foot{margin-top:25px;text-align:center;color:var(--muted);font-size:11px}
+@media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}.twocol{grid-template-columns:1fr}.top{align-items:flex-start}.metric{font-size:27px}}@media(max-width:430px){.wrap{padding:17px 12px 35px}.card{padding:13px}.grid{gap:8px}.brand{font-size:17px}.status{font-size:10px}.entry{align-items:flex-start}.entry .row{flex-direction:column;align-items:flex-end}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top">
+ <div><div class="brand">READ<span>STREAK</span></div><div class="muted tiny">Your reading journey, one page at a time.</div></div>
+ <div class="status">● OFFLINE READY</div>
+</header>
+<h1>Progress kecil,<br><span style="color:var(--blue)">hasil yang kelihatan.</span></h1>
+<p class="lead">Nggak perlu ngebut. Yang penting balik baca lagi besok.</p>
+
+<section class="grid">
+ <div class="card"><div class="label">Total halaman</div><div class="metric" id="total">0</div><div class="unit">halaman terbaca</div></div>
+ <div class="card"><div class="label">Hari membaca</div><div class="metric" id="days">0</div><div class="unit">hari aktif</div></div>
+ <div class="card"><div class="label">Streak sekarang</div><div class="metric" style="color:var(--orange)" id="streak">0 🔥</div><div class="unit">hari berturut-turut</div></div>
+ <div class="card"><div class="label">Sesi membaca</div><div class="metric" id="sessions">0</div><div class="unit">catatan tersimpan</div></div>
+</section>
+
+<nav class="tabs">
+ <button class="tab active" data-tab="dashboard">Dashboard</button>
+ <button class="tab" data-tab="input">Tambah bacaan</button>
+ <button class="tab" data-tab="history">Riwayat</button>
+ <button class="tab" data-tab="backup">Backup data</button>
+</nav>
+
+<section class="panel active" id="dashboard">
+ <div class="twocol">
+  <div class="card"><div class="head"><h2>Grafik 7 hari</h2><span class="tiny muted">halaman / hari</span></div><div id="chart" class="chart"></div></div>
+  <div class="card">
+   <div class="head"><h2>Target harian</h2><span class="tiny muted" id="goalLabel">10 halaman</span></div>
+   <div class="metric" id="today">0</div><div class="unit">halaman hari ini</div>
+   <div class="progress"><i id="goalBar"></i></div><p class="tiny muted" id="goalMsg">Atur target yang realistis.</p>
+   <div class="row"><input id="goalInput" type="number" min="1" max="200" value="10" style="max-width:100px"><button class="btn secondary" id="saveGoal">Simpan</button></div>
+  </div>
+ </div>
+ <div class="card section"><div class="head"><h2>Fokus minggu ini</h2><span class="bookchip" id="weeklyTotal">0 halaman</span></div><p class="muted tiny" id="motivation">Satu halaman tetap lebih baik daripada nol.</p></div>
+</section>
+
+<section class="panel" id="input">
+ <div class="card">
+  <div class="head"><h2>Catat sesi membaca</h2><span class="tiny muted">isi setelah selesai baca</span></div>
+  <form id="entryForm">
+   <div class="full"><label for="book">Judul buku</label><input id="book" list="bookList" placeholder="Contoh: Muhammad Al-Fatih 1453" required><datalist id="bookList"></datalist></div>
+   <div><label for="date">Tanggal membaca</label><input id="date" type="date" required></div>
+   <div><label for="pages">Jumlah halaman</label><input id="pages" type="number" min="1" max="2000" placeholder="10" required></div>
+   <div class="full"><label for="note">Catatan (opsional)</label><input id="note" maxlength="180" placeholder="Hal menarik yang gue pelajari..."></div>
+   <div class="full"><button class="btn" type="submit" style="width:100%">+ Simpan bacaan</button></div>
+  </form>
+  <p class="tiny muted" id="formMsg"></p>
+ </div>
+</section>
+
+<section class="panel" id="history">
+ <div class="card">
+  <div class="head"><h2>Semua riwayat</h2><span class="tiny muted" id="historyCount">0 catatan</span></div>
+  <div id="historyList" class="list"></div>
+ </div>
+</section>
+
+<section class="panel" id="backup">
+ <div class="card">
+  <div class="head"><h2>Backup & pindah perangkat</h2><span class="bookchip">Penting</span></div>
+  <p class="muted tiny">Data disimpan di browser/perangkat ini. Kalau mau memindahkan progres dari laptop ke HP (atau sebaliknya), ekspor backup lalu impor file yang sama di perangkat tujuan.</p>
+  <div class="row" style="margin:15px 0"><button class="btn" id="exportBtn">↓ Export backup</button><label class="btn secondary" for="importFile" style="margin:0;cursor:pointer">↑ Import backup</label><input id="importFile" type="file" accept=".json,application/json" hidden></div>
+  <div class="notice">Saran: export backup secara berkala, misalnya seminggu sekali. Saat import, pilih apakah mau menggabungkan data atau mengganti seluruh data di perangkat ini.</div>
+  <div class="row" style="margin-top:14px"><button class="btn danger" id="clearBtn">Hapus semua data di perangkat ini</button></div>
+ </div>
+</section>
+
+<div class="foot">READSTREAK OFFLINE · Data tersimpan di browser perangkat ini · Backup rutin biar aman.</div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+(()=> {
+ const KEY="readstreak_offline_v1";
+ const $=s=>document.querySelector(s);
+ const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+ let state={entries:[],goal:10};
+ function load(){try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);state={entries:Array.isArray(parsed.entries)?parsed.entries:[],goal:Number(parsed.goal)||10}}}catch(e){toast("Data lokal tidak bisa dibaca.")}}
+ function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+ function toast(msg){const t=$("#toast");t.textContent=msg;t.style.display="block";clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.style.display="none",2400)}
+ function dateLabel(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d).toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"})}
+ function totals(){const by={};state.entries.forEach(e=>by[e.date]=(by[e.date]||0)+Number(e.pages||0));return by}
+ function render(){
+  const by=totals(), dates=Object.keys(by).sort(), total=state.entries.reduce((a,e)=>a+Number(e.pages||0),0);
+  $("#total").textContent=total.toLocaleString("id-ID");$("#days").textContent=dates.length;$("#sessions").textContent=state.entries.length;
+  let d=new Date();if(!by[today()])d.setDate(d.getDate()-1);let streak=0;
+  while(by[`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`]){streak++;d.setDate(d.getDate()-1)}
+  $("#streak").textContent=streak+" 🔥";
+  const t=by[today()]||0;$("#today").textContent=t;$("#goalLabel").textContent=state.goal+" halaman";$("#goalInput").value=state.goal;
+  $("#goalBar").style.width=Math.min(100,t/state.goal*100)+"%";
+  $("#goalMsg").textContent=t>=state.goal?"Target hari ini tembus. Keren!":`Kurang ${state.goal-t} halaman lagi buat capai target.`;
+  const chart=$("#chart");chart.innerHTML="";let vals=[];
+  for(let i=6;i>=0;i--){let dt=new Date();dt.setDate(dt.getDate()-i);let key=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")}`;vals.push({key,val:by[key]||0,label:["Min","Sen","Sel","Rab","Kam","Jum","Sab"][dt.getDay()]})}
+  const max=Math.max(1,...vals.map(x=>x.val));
+  vals.forEach(x=>{const c=document.createElement("div");c.className="barcol";const v=document.createElement("span");v.className="barval";v.textContent=x.val||"";const b=document.createElement("div");b.className="bar";b.style.height=Math.max(3,x.val/max*112)+"px";b.title=x.val+" halaman";const l=document.createElement("span");l.className="day";l.textContent=x.label;c.append(v,b,l);chart.append(c)});
+  const week=vals.reduce((a,x)=>a+x.val,0);$("#weeklyTotal").textContent=week+" halaman";$("#motivation").textContent=week?`Minggu ini lo udah baca ${week} halaman. Jaga ritmenya, nggak perlu sempurna.`:"Mulai dengan 5 halaman hari ini. Bangun ritme dulu.";
+  const books=[...new Set(state.entries.map(e=>e.book).filter(Boolean))].sort();$("#bookList").innerHTML="";books.forEach(b=>{const o=document.createElement("option");o.value=b;$("#bookList").append(o)});
+  const sorted=[...state.entries].sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
+  $("#historyCount").textContent=sorted.length+" catatan";const list=$("#historyList");list.innerHTML="";
+  if(!sorted.length){list.innerHTML='<div class="empty">Belum ada catatan. Tambahkan sesi membaca pertamamu.</div>';return}
+  sorted.forEach(e=>{const el=document.createElement("div");el.className="entry";const left=document.createElement("div"),title=document.createElement("strong"),small=document.createElement("small"),right=document.createElement("div"),num=document.createElement("div"),del=document.createElement("button");
+   title.textContent=e.book;small.textContent=dateLabel(e.date)+(e.note?" · "+e.note:"");left.append(title,small);right.className="row";num.className="pages";num.textContent="+"+e.pages+" hlm";del.className="btn ghost";del.textContent="Hapus";del.onclick=()=>removeEntry(e.id);right.append(num,del);el.append(left,right);list.append(el);
+  });
+ }
+ function removeEntry(id){if(!confirm("Hapus catatan ini?"))return;state.entries=state.entries.filter(e=>e.id!==id);save();render();toast("Catatan dihapus.")}
+ document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===btn));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===btn.dataset.tab))}));
+ $("#date").value=today();
+ $("#entryForm").addEventListener("submit",e=>{e.preventDefault();const book=$("#book").value.trim(),date=$("#date").value,pages=Number($("#pages").value),note=$("#note").value.trim();if(!book||!date||!Number.isInteger(pages)||pages<1){$("#formMsg").textContent="Cek lagi judul, tanggal, dan jumlah halaman.";return}
+  state.entries.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),book,date,pages,note,createdAt:Date.now()});save();render();e.target.reset();$("#date").value=today();$("#formMsg").textContent="Tersimpan! Nice, satu langkah lagi jadi kebiasaan.";toast("Bacaan berhasil disimpan.");document.querySelector('[data-tab="dashboard"]').click();
+ });
+ $("#saveGoal").onclick=()=>{const n=Math.floor(Number($("#goalInput").value));if(!n||n<1||n>200){toast("Target harus 1–200 halaman.");return}state.goal=n;save();render();toast("Target harian diperbarui.")};
+ $("#exportBtn").onclick=()=>{const data={app:"READSTREAK",version:1,exportedAt:new Date().toISOString(),...state};const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="readstreak-backup-"+today()+".json";a.click();URL.revokeObjectURL(a.href);toast("Backup berhasil diekspor.")};
+ $("#importFile").onchange=async e=>{const file=e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(data.app!=="READSTREAK"||!Array.isArray(data.entries))throw Error("Format file bukan backup READSTREAK.");const mode=confirm("OK = GABUNGKAN dengan data sekarang.\nCancel = GANTI semua data sekarang dengan isi backup.");if(mode){const map=new Map(state.entries.map(x=>[x.id,x]));data.entries.forEach(x=>map.set(x.id||String(Date.now()+Math.random()),x));state.entries=[...map.values()];state.goal=Number(data.goal)||state.goal}else{state.entries=data.entries;state.goal=Number(data.goal)||10}save();render();toast("Backup berhasil diimpor.")}catch(err){alert("Gagal import: "+err.message)}finally{e.target.value=""}};
+ $("#clearBtn").onclick=()=>{if(!confirm("Yakin hapus SEMUA catatan dan target di perangkat ini? Export backup dulu kalau masih dibutuhkan."))return;state={entries:[],goal:10};save();render();toast("Data perangkat ini sudah dibersihkan.")};
+ load();render();
+ if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+})();
+</script>
+</body>
+</html>

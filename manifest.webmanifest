@@ -1,0 +1,10 @@
+{
+  "name": "READSTREAK Offline Reading Tracker",
+  "short_name": "READSTREAK",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a1120",
+  "theme_color": "#101827",
+  "description": "Tracker kebiasaan membaca yang bisa dipakai offline."
+}
